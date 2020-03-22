@@ -1,0 +1,28 @@
+{
+  "name": "shop-api",
+  "version": "1.0.0",
+  "description": "Backend for Merch Shop",
+  "main": "App.js",
+  "scripts": {
+    "start": "nodemon ./src/App.ts",
+    "start-server": "node ./dist/App.js",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "typescript": "^3.8.3",
+    "ts-node": "^8.8.1",
+    "express": "^4.17.1",
+    "@types/express": "^4.17.3",
+    "nodemon": "^2.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AryanshMahato/merch-shop-api.git"
+  },
+  "author": "Aryansh Mahato",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AryanshMahato/merch-shop-api/issues"
+  },
+  "homepage": "https://github.com/AryanshMahato/merch-shop-api#readme"
+}
