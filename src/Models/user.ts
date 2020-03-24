@@ -1,39 +1,41 @@
 import mongoose, { Schema } from "mongoose";
-import UserType from "../Interface/userType";
+import UserType from "../Interface/UserType";
 import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
 
-const userSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    maxlength: 32,
-    trim: true
+const userSchema = new Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      maxlength: 32,
+      trim: true
+    },
+    email: {
+      type: String,
+      trim: true,
+      required: true,
+      unique: true
+    },
+    userInfo: {
+      type: String,
+      trim: true
+    },
+    encry_password: {
+      type: String,
+      required: true
+    },
+    salt: String,
+    role: { type: Number, default: 0 },
+    purchases: {
+      type: Array,
+      default: []
+    },
+    first: String,
+    last: String
   },
-  email: {
-    type: String,
-    trim: true,
-    required: true,
-    unique: true
-  },
-  userInfo: {
-    type: String,
-    trim: true
-  },
-  //TODO: Comeback Here
-  encry_password: {
-    type: String,
-    required: true
-  },
-  salt: String,
-  role: { type: Number, default: 0 },
-  purchases: {
-    type: Array,
-    default: []
-  },
-  first: String,
-  last: String
-});
+  { timestamps: true }
+);
 
 // Virtual Method to set password
 userSchema
@@ -65,7 +67,6 @@ userSchema.method({
 
 // For IntelliSense
 class userModel extends mongoose.model("user", userSchema) {
-  [x: string]: any;
   constructor(userInfo: UserType) {
     super(userInfo);
   }
