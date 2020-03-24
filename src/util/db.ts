@@ -5,7 +5,7 @@ mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 
 const connectMongoose = () =>
-  mongoose.connect("mongodb://localhost:27017/merch-shop", {
+  mongoose.connect(process.env.DATABASE_CONNECTION_URI!, {
     useUnifiedTopology: true,
     useNewUrlParser: true
   });
