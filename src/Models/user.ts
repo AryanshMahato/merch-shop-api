@@ -66,10 +66,12 @@ userSchema.method({
 });
 
 // For IntelliSense
-class userModel extends mongoose.model("user", userSchema) {
+class UserModel extends mongoose.model("user", userSchema) {
+  [x: string]: any;
   constructor(userInfo: UserType) {
     super(userInfo);
+    
   }
 }
 
-export default userModel;
+export default UserModel;
