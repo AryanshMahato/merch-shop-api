@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { signIn, signOut, signUp } from "../Controllers/auth";
+import { Request, Response, Router } from "express";
+import { isSignedIn, signIn, signOut, signUp } from "../Controllers/auth";
 import { check } from "express-validator";
-import sendValidationError from "../Error/sendValidationError";
+import sendValidationError from "../Errors/sendValidationError";
 const authRoutes = Router();
 
 authRoutes.post(
@@ -26,5 +26,11 @@ authRoutes.post(
 );
 
 authRoutes.get("/signout", signOut);
+
+authRoutes.get("/test", isSignedIn, (req: Request, res: Response) => {
+  res.status(200).json({
+    message: "Protected Route"
+  });
+});
 
 export default authRoutes;

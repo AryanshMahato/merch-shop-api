@@ -1,3 +1,4 @@
+require("dotenv").config();
 import startServer from "./Server";
 import express, { Request, Response } from "express";
 import connectMongoose from "./util/db";
@@ -5,7 +6,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import authRoutes from "./Routes/auth";
-require("dotenv").config();
 const app = express();
 
 //? DB Connection
