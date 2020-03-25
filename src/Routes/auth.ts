@@ -1,18 +1,28 @@
 import { Router } from "express";
-import { signOut, signUp } from "../Controllers/auth";
+import { signIn, signOut, signUp } from "../Controllers/auth";
 import { check } from "express-validator";
-import validationError from "../Error/validationError";
+import sendValidationError from "../Error/sendValidationError";
 const authRoutes = Router();
 
 authRoutes.post(
   "/signup",
   [
-    check("email", "Name is too shot").isLength({ min: 3 }),
+    check("name", "Name is too shot").isLength({ min: 3 }),
     check("password", "Password is too short").isLength({ min: 6 }),
     check("email", "Email is invalid").isEmail(),
-    validationError
+    sendValidationError
   ],
   signUp
+);
+
+authRoutes.post(
+  "/signin",
+  [
+    check("password", "Password is too short").isLength({ min: 6 }),
+    check("email", "Email is invalid").isEmail(),
+    sendValidationError
+  ],
+  signIn
 );
 
 authRoutes.get("/signout", signOut);
