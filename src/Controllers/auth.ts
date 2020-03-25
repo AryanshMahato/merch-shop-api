@@ -1,7 +1,16 @@
 import { Request, Response } from "express";
 import UserModel from "../Models/user";
+import { validationResult } from "express-validator";
 
 const signUp = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      message: "Request body is not correct",
+      error: errors.array()
+    });
+  }
+
   const user = new UserModel(req.body);
   try {
     const userData = await user.save();
