@@ -5,6 +5,7 @@ import expressJwt from "express-jwt";
 import noUserFound from "../Errors/noUserFound";
 import invalidCredentials from "../Errors/invalidCredentials";
 import internalServerError from "../Errors/internalServerError";
+import unAuthorizedError from "../Errors/unAuthorized";
 
 const signUp = async (req: Request, res: Response) => {
   const user = new UserModel(req.body);
@@ -57,7 +58,18 @@ const isSignedIn = expressJwt({
 });
 
 const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
-  console.log(req.auth!._id);
+  const checker = req.profile && req.auth && req.profile._id === req.auth._id;
+  if (!checker) {
+    return unAuthorizedError(res);
+  }
+  next();
 };
 
-export { signOut, signUp, signIn, isSignedIn };
+const isAdmin = (req: Request, res: Response, next: NextFunction) => {
+  if (req.body.profile !== 1) {
+    unAuthorizedError(res);
+  }
+  next();
+};
+
+export { signOut, signUp, signIn, isSignedIn, isAuthenticated, isAdmin };
