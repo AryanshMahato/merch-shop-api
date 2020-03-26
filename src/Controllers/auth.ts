@@ -11,9 +11,14 @@ const signUp = async (req: Request, res: Response) => {
   const user = new UserModel(req.body);
   try {
     const userData = await user.save();
+    //create token
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET!, {
+      expiresIn: "7d"
+    });
     res.status(200).json({
       message: "User Created",
-      data: { id: userData._id, name: userData.name, email: user.email }
+      data: { id: userData._id, name: userData.name, email: user.email },
+      token
     });
   } catch (err) {
     res.json({ error: err });
