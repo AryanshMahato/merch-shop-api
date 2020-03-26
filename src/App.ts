@@ -1,6 +1,8 @@
+import { UnauthorizedError } from "express-jwt";
+
 require("dotenv").config();
 import startServer from "./Server";
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import connectMongoose from "./util/db";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -25,10 +27,13 @@ app.use(cookieParser());
 //? Routes
 app.use("/api", authRoutes);
 
-app.use("/", (req: Request, res: Response) => {
-  res.status(200).json({
-    message: "Hello World!"
-  });
+// Check for Invalid Token Error
+app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
+  if (err.name === "UnauthorizedError") {
+    res.status(err.status).send({ message: err.message });
+    return;
+  }
+  next();
 });
 
 startServer(app);
