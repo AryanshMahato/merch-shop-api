@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import UserModel from "../Models/user";
 import expressJwt from "express-jwt";
-import noUserFound from "../Errors/noUserFound";
+import notFoundError from "../Errors/notFoundError";
 import invalidCredentials from "../Errors/invalidCredentials";
 import internalServerError from "../Errors/internalServerError";
 import unAuthorizedError from "../Errors/unAuthorized";
@@ -25,7 +25,7 @@ const signIn = async (req: Request, res: Response) => {
 
   try {
     const user = await UserModel.findOne({ email: email });
-    if (!user) return noUserFound(email, res);
+    if (!user) return notFoundError(res);
     // @ts-ignore
     if (!user.authenticate(password)) return invalidCredentials(res);
 
@@ -57,14 +57,6 @@ const isSignedIn = expressJwt({
   userProperty: "auth"
 });
 
-const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
-  const checker = req.profile && req.auth && req.profile._id === req.auth._id;
-  if (!checker) {
-    return unAuthorizedError(res);
-  }
-  next();
-};
-
 const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   if (req.body.profile !== 1) {
     unAuthorizedError(res);
@@ -72,4 +64,4 @@ const isAdmin = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-export { signOut, signUp, signIn, isSignedIn, isAuthenticated, isAdmin };
+export { signOut, signUp, signIn, isSignedIn, isAdmin };

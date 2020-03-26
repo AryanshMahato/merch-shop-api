@@ -8,6 +8,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import authRoutes from "./Routes/auth";
+import userRoutes from "./Routes/user";
 const app = express();
 
 //? DB Connection
@@ -26,6 +27,7 @@ app.use(cookieParser());
 
 //? Routes
 app.use("/api", authRoutes);
+app.use("/api", userRoutes);
 
 // Check for Invalid Token Error
 app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
