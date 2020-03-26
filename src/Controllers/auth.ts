@@ -37,6 +37,8 @@ const signIn = async (req: Request, res: Response) => {
     // Send Response
     res.status(200).json({
       message: "User Authenticated",
+      // @ts-ignore
+      data: { _id: user._id, email: user.email, name: user.name },
       token
     });
   } catch (e) {
