@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import OrderType from "../Interface/OrderType";
+import OrderType from "../../types/models/OrderType";
 
 const { ObjectId } = Schema.Types;
 

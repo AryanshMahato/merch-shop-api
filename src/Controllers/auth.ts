@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import UserModel from "../Models/user";
 import expressJwt from "express-jwt";
@@ -55,5 +55,9 @@ const isSignedIn = expressJwt({
   secret: process.env.JWT_SECRET!,
   userProperty: "auth"
 });
+
+const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.auth!._id);
+};
 
 export { signOut, signUp, signIn, isSignedIn };
