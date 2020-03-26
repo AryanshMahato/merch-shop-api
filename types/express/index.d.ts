@@ -1,10 +1,10 @@
 declare namespace Express {
   interface Request {
     profile?: {
-      _id?: number;
+      _id?: string;
     };
     auth?: {
-      _id: number;
+      _id: string;
       iat: number;
     };
   }

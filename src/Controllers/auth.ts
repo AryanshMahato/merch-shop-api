@@ -59,11 +59,22 @@ const isSignedIn = expressJwt({
   userProperty: "auth"
 });
 
-const isAdmin = (req: Request, res: Response, next: NextFunction) => {
-  if (req.body.profile !== 1) {
-    unAuthorizedError(res);
+const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+  // Returns true if all checks are true
+  const check =
+    req.auth &&
+    (req.auth._id === req.body.id || req.auth._id === req.params.id);
+  if (!check) {
+    return unAuthorizedError(res);
   }
   next();
 };
 
-export { signOut, signUp, signIn, isSignedIn, isAdmin };
+const isAdmin = (req: Request, res: Response, next: NextFunction) => {
+  if (req.body.profile !== 1) {
+    return unAuthorizedError(res);
+  }
+  next();
+};
+
+export { signOut, signUp, signIn, isSignedIn, isAdmin, isAuthenticated };
