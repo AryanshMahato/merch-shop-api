@@ -26,7 +26,7 @@ const getCategoryById = async (
 const createCategory = async (req: Request, res: Response) => {
   const category = new CategoryModel({
     name: req.body.name,
-    createdBy: req.params.id
+    createdBy: req.auth!._id
   });
   try {
     await category.save();

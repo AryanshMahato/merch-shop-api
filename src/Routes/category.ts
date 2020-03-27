@@ -1,16 +1,22 @@
 import { Router } from "express";
 import { createCategory } from "../Controllers/category";
-import { isAdmin, isAuthenticated, isSignedIn } from "../Controllers/auth";
+import { isAdmin,  isSignedIn } from "../Controllers/auth";
 
 const categoryRoutes = Router();
 
 //Create Category
 categoryRoutes.post(
-  "/category/create/:id",
+  "/category/create/",
   isSignedIn,
-  isAuthenticated,
   isAdmin,
   createCategory
 );
+
+// categoryRoutes.get(
+//   "/category/create/:id",
+//   isSignedIn,
+//   isAdmin,
+//   getAllCategory
+// );
 
 export default categoryRoutes;
