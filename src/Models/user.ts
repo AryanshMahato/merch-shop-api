@@ -67,10 +67,8 @@ userSchema.method({
 
 // For IntelliSense
 class UserModel extends mongoose.model("user", userSchema) {
-  [x: string]: any;
   constructor(userInfo: UserType) {
     super(userInfo);
-    
   }
 }
 

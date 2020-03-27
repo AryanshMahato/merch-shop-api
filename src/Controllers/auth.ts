@@ -17,6 +17,7 @@ const signUp = async (req: Request, res: Response) => {
     });
     res.status(200).json({
       message: "User Created",
+      // @ts-ignore
       data: { id: userData._id, name: userData.name, email: user.email },
       token
     });
