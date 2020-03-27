@@ -76,11 +76,20 @@ const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-const isAdmin = (req: Request, res: Response, next: NextFunction) => {
-  if (req.body.profile !== 1) {
-    return unAuthorizedError(res);
+const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await UserModel.findById(req.auth!._id).exec();
+    if (!user) {
+      return notFoundError("User", res);
+    }
+    // @ts-ignore
+    if (user.role !== 1) {
+      return unAuthorizedError(res);
+    }
+    next();
+  } catch (e) {
+    internalServerError(e, res);
   }
-  next();
 };
 
 export { signOut, signUp, signIn, isSignedIn, isAdmin, isAuthenticated };
