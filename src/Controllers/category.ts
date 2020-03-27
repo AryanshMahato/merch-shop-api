@@ -23,6 +23,21 @@ const getCategoryById = async (
   }
 };
 
+const getAllCategory = async (req: Request, res: Response) => {
+  try {
+    const categories = await CategoryModel.find().exec();
+    if (!categories) {
+      notFoundError("Categories", res);
+    }
+    res.status(200).json({
+      message: "All categories are listed",
+      categories
+    });
+  } catch (e) {
+    internalServerError(e, res);
+  }
+};
+
 const createCategory = async (req: Request, res: Response) => {
   const category = new CategoryModel({
     name: req.body.name,
@@ -42,4 +57,4 @@ const createCategory = async (req: Request, res: Response) => {
   }
 };
 
-export { getCategoryById, createCategory };
+export { getCategoryById, createCategory, getAllCategory };
