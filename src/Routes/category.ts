@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  createCategory,
+  createCategory, deleteCategory,
   getAllCategory,
   getCategoryById, updateCategory
 } from "../Controllers/category";
@@ -16,5 +16,7 @@ categoryRoutes.get("/category", isSignedIn, isAdmin, getAllCategory);
 categoryRoutes.get("/category/:id", isSignedIn, isAdmin, getCategoryById);
 
 categoryRoutes.put("/category/:id", isSignedIn, isAdmin, updateCategory);
+
+categoryRoutes.delete("/category/:id", isSignedIn, isAdmin, deleteCategory);
 
 export default categoryRoutes;

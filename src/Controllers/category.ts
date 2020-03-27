@@ -77,5 +77,32 @@ const updateCategory = async (req: Request, res: Response) => {
     throw new Error(e);
   }
 };
+const deleteCategory = async (req: Request, res: Response) => {
+  try {
+    //Checks if category is there or not
+    const category = await CategoryModel.findById(req.params.id).exec();
+    if (!category) {
+      return notFoundError("Category", res);
+    }
+    await CategoryModel.findByIdAndDelete(req.params.id).exec();
+    res.status(200).json({
+      message: "Category Deleted!",
+      category: {
+        // @ts-ignore
+        name: category.name,
+        id: category._id
+      }
+    });
+  } catch (e) {
+    internalServerError(e, res);
+    throw new Error(e);
+  }
+};
 
-export { getCategoryById, createCategory, getAllCategory, updateCategory };
+export {
+  getCategoryById,
+  createCategory,
+  getAllCategory,
+  updateCategory,
+  deleteCategory
+};
