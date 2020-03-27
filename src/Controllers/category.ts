@@ -55,4 +55,27 @@ const createCategory = async (req: Request, res: Response) => {
   }
 };
 
-export { getCategoryById, createCategory, getAllCategory };
+const updateCategory = async (req: Request, res: Response) => {
+  try {
+    const category = await CategoryModel.findById(req.params.id).exec();
+    if (!category) {
+      return notFoundError("Category", res);
+    }
+    // @ts-ignore
+    category.name = req.body.name;
+    await category.save();
+    res.status(200).json({
+      message: "Category Updated!",
+      category: {
+        // @ts-ignore
+        name: category.name,
+        id: category._id
+      }
+    });
+  } catch (e) {
+    internalServerError(e, res);
+    throw new Error(e);
+  }
+};
+
+export { getCategoryById, createCategory, getAllCategory, updateCategory };
