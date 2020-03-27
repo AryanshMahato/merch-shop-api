@@ -1,0 +1,48 @@
+import { Request, Response } from "express";
+import ProductModel from "../Models/product";
+import notFoundError from "../Errors/notFoundError";
+import internalServerError from "../Errors/internalServerError";
+import CategoryModel from "../Models/category";
+
+const getProductById = async (req: Request, res: Response) => {
+  try {
+    const product = await ProductModel.find({ _id: req.params.id })
+      .select("name description price category stock sold photo")
+      .populate("category", "_id name")
+      .exec();
+    if (!product) {
+      notFoundError("Products", res);
+    }
+    res.status(200).json({
+      message: "Product Found!",
+      product
+    });
+  } catch (e) {
+    internalServerError(e, res);
+  }
+};
+
+const createProduct = async (req: Request, res: Response) => {
+  try {
+    // Check if Category is valid or not
+    const category = await CategoryModel.findById(req.body.category).exec();
+    if (!category) {
+      return notFoundError("Category", res);
+    }
+    const product = new ProductModel(req.body);
+    await product.save();
+
+    res.status(201).json({
+      message: "Product Created",
+      product: {
+        // @ts-ignore
+        name: product.name,
+        id: product._id
+      }
+    });
+  } catch (e) {
+    internalServerError(e, res);
+  }
+};
+
+export { getProductById, createProduct };

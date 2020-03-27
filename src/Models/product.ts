@@ -41,10 +41,10 @@ const productSchema = new Schema(
   { timestamps: true }
 );
 
-class productModel extends model("product", productSchema) {
+class ProductModel extends model("product", productSchema) {
   constructor(product: ProductType) {
     super(product);
   }
 }
 
-export default productModel;
+export default ProductModel;

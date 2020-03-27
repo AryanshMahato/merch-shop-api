@@ -3,10 +3,10 @@ import * as mongoose from "mongoose";
 interface ProductType {
   name: string;
   description: string;
-  price: number;
+  price: string;
   category: mongoose.Schema.Types.ObjectId;
-  stock?: number;
-  sold?: number;
+  stock?: string;
+  sold?: string;
   photo?: Buffer;
 }
 

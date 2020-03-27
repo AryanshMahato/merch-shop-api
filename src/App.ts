@@ -1,5 +1,4 @@
 import { UnauthorizedError } from "express-jwt";
-
 require("dotenv").config();
 import startServer from "./Server";
 import express, { NextFunction, Request, Response } from "express";
@@ -10,6 +9,7 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./Routes/auth";
 import userRoutes from "./Routes/user";
 import categoryRoutes from "./Routes/category";
+import productRoutes from "./Routes/product";
 const app = express();
 
 //? DB Connection
@@ -30,6 +30,7 @@ app.use(cookieParser());
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
+app.use("/api", productRoutes);
 
 // Check for Invalid Token Error
 app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
