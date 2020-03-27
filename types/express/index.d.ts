@@ -7,5 +7,6 @@ declare namespace Express {
       _id: string;
       iat: number;
     };
+    category?: any;
   }
 }

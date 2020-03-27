@@ -3,7 +3,6 @@ import UserModel from "../Models/user";
 import internalServerError from "../Errors/internalServerError";
 import notFoundError from "../Errors/notFoundError";
 import OrderModel from "../Models/order";
-import OrderType from "../../types/models/OrderType";
 
 const getUserById = async (req: Request, res: Response) => {
   try {

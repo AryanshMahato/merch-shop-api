@@ -31,7 +31,7 @@ const signIn = async (req: Request, res: Response) => {
 
   try {
     const user = await UserModel.findOne({ email: email });
-    if (!user) return notFoundError("User",res);
+    if (!user) return notFoundError("User", res);
     // @ts-ignore
     if (!user.authenticate(password)) return invalidCredentials(res);
 

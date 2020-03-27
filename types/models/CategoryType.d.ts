@@ -1,5 +1,6 @@
 interface CategoryType {
-  category: string;
+  name: string;
+  createdBy: string;
 }
 
 export default CategoryType;
