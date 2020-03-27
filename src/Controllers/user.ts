@@ -1,8 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import UserModel from "../Models/user";
 import internalServerError from "../Errors/internalServerError";
 import notFoundError from "../Errors/notFoundError";
 import OrderModel from "../Models/order";
+import OrderType from "../../types/models/OrderType";
 
 const getUserById = async (req: Request, res: Response) => {
   try {
@@ -64,4 +65,43 @@ const userPurchaseList = async (req: Request, res: Response) => {
   }
 };
 
-export { getUserById, updateUserById, userPurchaseList };
+const pushOrderInPurchaseList = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  let purchases: Array<any> = [];
+  req.body.order.products.forEach((product: any) => {
+    purchases.push({
+      _id: product._id,
+      name: product.name,
+      description: product.description,
+      category: product.category,
+      quantity: product.quantity,
+      amount: req.body.amount,
+      transaction_id: req.body.transaction_id
+    });
+  });
+  // Store Purchases in DB
+  try {
+    const user = await UserModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { $push: { purchases: purchases } },
+      { new: true }
+    ).exec();
+    if (!!user) {
+      return notFoundError("User(Update)", res);
+    }
+    next();
+  } catch (e) {
+    internalServerError(e, res);
+    throw new Error(e);
+  }
+};
+
+export {
+  getUserById,
+  updateUserById,
+  userPurchaseList,
+  pushOrderInPurchaseList
+};
