@@ -65,7 +65,7 @@ const isSignedIn = expressJwt({
   userProperty: "auth"
 });
 
-const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
+const isUser = (req: Request, res: Response, next: NextFunction) => {
   // Returns true if all checks are true
   const check =
     req.auth &&
@@ -92,4 +92,4 @@ const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { signOut, signUp, signIn, isSignedIn, isAdmin, isAuthenticated };
+export { signOut, signUp, signIn, isSignedIn, isAdmin, isUser };
