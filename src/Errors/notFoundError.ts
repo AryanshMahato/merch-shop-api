@@ -1,8 +1,8 @@
 import { Response } from "express";
 
-const notFoundError = (res: Response) => {
+const notFoundError = (notFound: string,res: Response) => {
   res.status(404).json({
-    message: "USER not found"
+    message: `${notFound} not found`
   });
 };
 

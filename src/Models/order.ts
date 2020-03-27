@@ -19,10 +19,10 @@ const orderSchema = new Schema(
   { timestamps: true }
 );
 
-class categoryModel extends model("order", orderSchema) {
+class OrderModel extends model("order", orderSchema) {
   constructor(order: OrderType) {
     super(order);
   }
 }
 
-export default categoryModel;
+export default OrderModel;
