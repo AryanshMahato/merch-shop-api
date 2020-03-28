@@ -81,4 +81,27 @@ const updateProduct = async (req: Request, res: Response) => {
   res.status(200);
 };
 
-export { getProductById, createProduct, updateProduct };
+const deleteProduct = async (req: Request, res: Response) => {
+  const productId = req.params.id;
+  try {
+    // Check if Product Id is valid
+    const product = await ProductModel.findById(productId).exec();
+    if (!product) {
+      return notFoundError("Product", res);
+    }
+
+    // Delete Product
+    await product.remove();
+    res.status(200).json({
+      message: "Product Deleted",
+      product: {
+        name: req.body.name,
+        id: product._id
+      }
+    });
+  } catch (e) {
+    internalServerError(e, res);
+  }
+};
+
+export { getProductById, createProduct, updateProduct, deleteProduct };
