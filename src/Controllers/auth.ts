@@ -65,6 +65,7 @@ const isSignedIn = expressJwt({
   userProperty: "auth"
 });
 
+// No need to add isUser while using isAdmin
 const isUser = (req: Request, res: Response, next: NextFunction) => {
   // Returns true if all checks are true
   const check =
