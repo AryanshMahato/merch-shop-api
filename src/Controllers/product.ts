@@ -3,11 +3,15 @@ import ProductModel from "../Models/product";
 import notFoundError from "../Errors/notFoundError";
 import internalServerError from "../Errors/internalServerError";
 import CategoryModel from "../Models/category";
+import { Fields, Files, IncomingForm } from "formidable";
+import fs from "fs";
+import badRequest from "../Errors/badRequest";
+const form = new IncomingForm();
 
 const getProductById = async (req: Request, res: Response) => {
   try {
-    const product = await ProductModel.find({ _id: req.params.id })
-      .select("name description price category stock sold photo")
+    const product = await ProductModel.findOne({ _id: req.params.id })
+      .select("name description price category stock sold")
       .populate("category", "_id name")
       .exec();
     if (!product) {
@@ -93,6 +97,40 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
+const getProductImage = async (req: Request, res: Response) => {
+  res.contentType(req.product.imageExtension);
+  res.send(req.product.image);
+};
+
+const setProductImage = async (req: Request, res: Response) => {
+  const product = await ProductModel.findById(req.product._doc._id).exec();
+
+  form.keepExtensions = true;
+  form.parse(req, async (err, fields: Fields, files: Files) => {
+    if (err) {
+      return badRequest(err, res);
+    }
+    if (files.image) {
+      if (files.image.size > 4194304) {
+        return res.status(400).json({
+          message: "File size too big!"
+        });
+      }
+      // @ts-ignore
+      product.image = fs.readFileSync(files.image.path);
+      // @ts-ignore
+      product.imageExtension = files.image.type;
+      // @ts-ignore
+      product.image.contentType = files.image.type;
+      await product?.save();
+      return res.status(200).json({
+        message: "Product Saved!"
+      });
+    }
+    internalServerError("Error", res);
+  });
+};
+
 // Middleware that sets req.product
 const setProductInRequest = async (
   req: Request,
@@ -106,7 +144,9 @@ const setProductInRequest = async (
     }
 
     const product = await ProductModel.findById(id)
-      .select("_id name description price category stock sold photo")
+      .select(
+        "_id name description price category stock sold image imageExtension"
+      )
       .populate("category");
     if (!product) {
       return notFoundError("Product", res);
@@ -124,5 +164,7 @@ export {
   createProduct,
   updateProduct,
   deleteProduct,
-  setProductInRequest
+  setProductInRequest,
+  setProductImage,
+  getProductImage
 };

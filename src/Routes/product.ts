@@ -3,6 +3,8 @@ import {
   createProduct,
   deleteProduct,
   getProductById,
+  getProductImage,
+  setProductImage,
   setProductInRequest,
   updateProduct
 } from "../Controllers/product";
@@ -30,5 +32,15 @@ productRoutes.put(
 );
 
 productRoutes.delete("/product/:id", isSignedIn, isAdmin, deleteProduct);
+
+productRoutes.post(
+  "/product/image/:id",
+  setProductInRequest,
+  isSignedIn,
+  isAdmin,
+  setProductImage
+);
+
+productRoutes.get("/product/image/:id", setProductInRequest, getProductImage);
 
 export default productRoutes;

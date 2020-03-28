@@ -33,10 +33,11 @@ const productSchema = new Schema(
       type: Number,
       default: 0
     },
-    photo: {
+    image: {
       type: Buffer,
       contentType: String
-    }
+    },
+    imageExtension: String
   },
   { timestamps: true }
 );
