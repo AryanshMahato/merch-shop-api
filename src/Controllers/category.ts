@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import CategoryModel from "../Models/category";
 import notFoundError from "../Errors/notFoundError";
 import internalServerError from "../Errors/internalServerError";
@@ -77,20 +77,15 @@ const updateCategory = async (req: Request, res: Response) => {
     throw new Error(e);
   }
 };
+
 const deleteCategory = async (req: Request, res: Response) => {
   try {
-    //Checks if category is there or not
-    const category = await CategoryModel.findById(req.params.id).exec();
-    if (!category) {
-      return notFoundError("Category", res);
-    }
     await CategoryModel.findByIdAndDelete(req.params.id).exec();
     res.status(200).json({
       message: "Category Deleted!",
       category: {
-        // @ts-ignore
-        name: category.name,
-        id: category._id
+        name: req.category.name,
+        id: req.category._id
       }
     });
   } catch (e) {
@@ -99,10 +94,31 @@ const deleteCategory = async (req: Request, res: Response) => {
   }
 };
 
+// Sets value of req.category or throws error
+const getCategoryMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({
+      message: "No Id found"
+    });
+  }
+  const category = await CategoryModel.findById(id).exec();
+  if (!category) {
+    return notFoundError("Category", res);
+  }
+  req.category = category;
+  next();
+};
+
 export {
   getCategoryById,
   createCategory,
   getAllCategory,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+  getCategoryMiddleware
 };
