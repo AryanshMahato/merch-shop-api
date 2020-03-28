@@ -57,20 +57,12 @@ const createCategory = async (req: Request, res: Response) => {
 
 const updateCategory = async (req: Request, res: Response) => {
   try {
-    const category = await CategoryModel.findById(req.params.id).exec();
-    if (!category) {
-      return notFoundError("Category", res);
-    }
-    // @ts-ignore
-    category.name = req.body.name;
-    await category.save();
+    await CategoryModel.findByIdAndUpdate(req.category._id, {
+      $set: { ...req.body }
+    }).exec();
     res.status(200).json({
-      message: "Category Updated!",
-      category: {
-        // @ts-ignore
-        name: category.name,
-        id: category._id
-      }
+      message: "Category Updated",
+      category: { ...req.category._doc }
     });
   } catch (e) {
     internalServerError(e, res);
@@ -83,10 +75,7 @@ const deleteCategory = async (req: Request, res: Response) => {
     await CategoryModel.findByIdAndDelete(req.params.id).exec();
     res.status(200).json({
       message: "Category Deleted!",
-      category: {
-        name: req.category.name,
-        id: req.category._id
-      }
+      category: { ...req.category._doc }
     });
   } catch (e) {
     internalServerError(e, res);
@@ -106,7 +95,9 @@ const getCategoryMiddleware = async (
       message: "No Id found"
     });
   }
-  const category = await CategoryModel.findById(id).exec();
+  const category = await CategoryModel.findById(id)
+    .select("name _id")
+    .exec();
   if (!category) {
     return notFoundError("Category", res);
   }
