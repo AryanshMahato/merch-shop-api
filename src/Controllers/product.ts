@@ -1,7 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import ProductModel from "../Models/product";
 import notFoundError from "../Errors/notFoundError";
 import internalServerError from "../Errors/internalServerError";
+import CategoryModel from "../Models/category";
 
 const getProductById = async (req: Request, res: Response) => {
   try {
@@ -40,14 +41,17 @@ const createProduct = async (req: Request, res: Response) => {
 
 const updateProduct = async (req: Request, res: Response) => {
   const productId = req.params.id;
+
   try {
-    // Check if Product Id is valid
-    const product = await ProductModel.findById(productId).exec();
-    if (!product) {
-      return notFoundError("Product", res);
+    // Check if category is valid (If provided)
+    const categoryId = req.body.category;
+    if (categoryId) {
+      const category = await CategoryModel.findById(categoryId).exec();
+      if (!category) {
+        return notFoundError("Category", res);
+      }
     }
 
-    // Update product if Product id is valid
     await ProductModel.updateOne(
       { _id: productId },
       { $set: { ...req.body } }
@@ -56,7 +60,7 @@ const updateProduct = async (req: Request, res: Response) => {
       message: "Product Updated",
       product: {
         name: req.body.name,
-        id: product._id
+        id: req.product._doc._id
       }
     });
   } catch (e) {
@@ -89,4 +93,36 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
-export { getProductById, createProduct, updateProduct, deleteProduct };
+// Middleware that sets req.product
+const setProductInRequest = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = req.body.product || req.params.id;
+    if (!id) {
+      return notFoundError("Id", res);
+    }
+
+    const product = await ProductModel.findById(id)
+      .select("_id name description price category stock sold photo")
+      .populate("category");
+    if (!product) {
+      return notFoundError("Product", res);
+    }
+
+    req.product = product;
+    next();
+  } catch (e) {
+    internalServerError(e, res);
+  }
+};
+
+export {
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  setProductInRequest
+};

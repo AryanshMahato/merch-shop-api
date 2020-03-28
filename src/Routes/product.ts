@@ -3,6 +3,7 @@ import {
   createProduct,
   deleteProduct,
   getProductById,
+  setProductInRequest,
   updateProduct
 } from "../Controllers/product";
 import { isAdmin, isSignedIn } from "../Controllers/auth";
@@ -24,7 +25,7 @@ productRoutes.put(
   "/product/:id",
   isSignedIn,
   isAdmin,
-  setCategoryInRequest,
+  setProductInRequest,
   updateProduct
 );
 

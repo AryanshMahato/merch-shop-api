@@ -4,7 +4,6 @@ import notFoundError from "../Errors/notFoundError";
 import internalServerError from "../Errors/internalServerError";
 import duplicateKeyError from "../Errors/duplicateKeyError";
 
-// Middleware to set req.category
 const getCategoryById = async (req: Request, res: Response) => {
   try {
     const category = await CategoryModel.findById(req.params.id).exec();

@@ -8,5 +8,6 @@ declare namespace Express {
       iat: number;
     };
     category?: any;
+    product?: any;
   }
 }
