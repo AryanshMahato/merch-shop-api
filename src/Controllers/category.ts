@@ -90,7 +90,7 @@ const setCategoryInRequest = async (
   next: NextFunction
 ) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id || req.body.category;
     if (!id) {
       return res.status(400).json({
         message: "No Id found"

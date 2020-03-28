@@ -24,14 +24,8 @@ const getProductById = async (req: Request, res: Response) => {
 
 const createProduct = async (req: Request, res: Response) => {
   try {
-    // Check if Category is valid or not
-    const category = await CategoryModel.findById(req.body.category).exec();
-    if (!category) {
-      return notFoundError("Category", res);
-    }
     const product = new ProductModel(req.body);
     await product.save();
-
     res.status(201).json({
       message: "Product Created",
       product: {
