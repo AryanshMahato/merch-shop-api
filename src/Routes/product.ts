@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
   createProduct,
-  deleteProduct,
+  deleteProduct, getAllProduct,
   getProductById,
   getProductImage,
   setProductImage,
@@ -14,6 +14,8 @@ import { setCategoryInRequest } from "../Controllers/category";
 const productRoutes = Router();
 
 productRoutes.get("/product/:id", getProductById);
+
+productRoutes.get("/products/:limit", getAllProduct);
 
 productRoutes.post(
   "/product/",

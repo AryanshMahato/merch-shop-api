@@ -8,6 +8,24 @@ import fs from "fs";
 import badRequest from "../Errors/badRequest";
 const form = new IncomingForm();
 
+const getAllProduct = async (req: Request, res: Response) => {
+  const { limit } = req.params;
+  const products = await ProductModel.find()
+    .limit(+limit)
+    .select("name description price category stock sold image imageExtension")
+    .populate("category", "name _id")
+    .exec();
+
+  if (!products) {
+    return notFoundError("Product", res);
+  }
+  res.status(200).json({
+    message: "Products found",
+    length: products.length,
+    products
+  });
+};
+
 const getProductById = async (req: Request, res: Response) => {
   try {
     const product = await ProductModel.findOne({ _id: req.params.id })
@@ -163,5 +181,6 @@ export {
   deleteProduct,
   setProductInRequest,
   setProductImage,
-  getProductImage
+  getProductImage,
+  getAllProduct
 };
