@@ -84,7 +84,7 @@ const deleteCategory = async (req: Request, res: Response) => {
 };
 
 // Sets value of req.category or throws error
-const getCategoryMiddleware = async (
+const setCategoryInRequest = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -116,5 +116,5 @@ export {
   getAllCategory,
   updateCategory,
   deleteCategory,
-  getCategoryMiddleware
+  setCategoryInRequest
 };

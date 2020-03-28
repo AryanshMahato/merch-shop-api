@@ -4,7 +4,7 @@ import {
   deleteCategory,
   getAllCategory,
   getCategoryById,
-  getCategoryMiddleware,
+  setCategoryInRequest,
   updateCategory
 } from "../Controllers/category";
 import { isAdmin, isSignedIn } from "../Controllers/auth";
@@ -22,7 +22,7 @@ categoryRoutes.put(
   "/category/:id",
   isSignedIn,
   isAdmin,
-  getCategoryMiddleware,
+  setCategoryInRequest,
   updateCategory
 );
 
@@ -30,7 +30,7 @@ categoryRoutes.delete(
   "/category/:id",
   isSignedIn,
   isAdmin,
-  getCategoryMiddleware,
+  setCategoryInRequest,
   deleteCategory
 );
 
