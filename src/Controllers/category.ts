@@ -89,19 +89,24 @@ const getCategoryMiddleware = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { id } = req.params;
-  if (!id) {
-    return res.status(400).json({
-      message: "No Id found"
-    });
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({
+        message: "No Id found"
+      });
+    }
+    const category = await CategoryModel.findById(id)
+      .select("name _id")
+      .exec();
+    console.log(category);
+    if (!category) {
+      return notFoundError("Category", res);
+    }
+    req.category = category;
+  } catch (e) {
+    internalServerError(e, res);
   }
-  const category = await CategoryModel.findById(id)
-    .select("name _id")
-    .exec();
-  if (!category) {
-    return notFoundError("Category", res);
-  }
-  req.category = category;
   next();
 };
 
