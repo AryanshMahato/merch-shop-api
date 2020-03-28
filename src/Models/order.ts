@@ -1,16 +1,14 @@
 import { model, Schema } from "mongoose";
 import OrderType from "../../types/models/OrderType";
-import { productCartSchema } from "./productCart";
 
 const { ObjectId } = Schema.Types;
 
 const orderSchema = new Schema(
   {
-    products: [productCartSchema],
+    products: [{ type: ObjectId, ref: "product" }],
     transactionId: {},
     amount: { type: Number },
     address: String,
-    updated: Date,
     user: {
       type: ObjectId,
       ref: "user"
