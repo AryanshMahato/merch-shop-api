@@ -35,9 +35,9 @@ productRoutes.delete("/product/:id", isSignedIn, isAdmin, deleteProduct);
 
 productRoutes.post(
   "/product/image/:id",
-  setProductInRequest,
   isSignedIn,
   isAdmin,
+  setProductInRequest,
   setProductImage
 );
 

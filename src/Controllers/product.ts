@@ -103,8 +103,6 @@ const getProductImage = async (req: Request, res: Response) => {
 };
 
 const setProductImage = async (req: Request, res: Response) => {
-  const product = await ProductModel.findById(req.product._doc._id).exec();
-
   form.keepExtensions = true;
   form.parse(req, async (err, fields: Fields, files: Files) => {
     if (err) {
@@ -116,13 +114,12 @@ const setProductImage = async (req: Request, res: Response) => {
           message: "File size too big!"
         });
       }
-      // @ts-ignore
-      product.image = fs.readFileSync(files.image.path);
-      // @ts-ignore
-      product.imageExtension = files.image.type;
-      // @ts-ignore
-      product.image.contentType = files.image.type;
-      await product?.save();
+      const imageLocation = fs.readFileSync(files.image.path);
+      const imageType = files.image.type;
+      await ProductModel.findByIdAndUpdate(req.product._doc._id, {
+        $set: { image: imageLocation, imageExtension: imageType }
+      }).exec();
+
       return res.status(200).json({
         message: "Product Saved!"
       });
