@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import ProductModel from "../Models/product";
 import notFoundError from "../Errors/notFoundError";
 import internalServerError from "../Errors/internalServerError";
-import CategoryModel from "../Models/category";
 
 const getProductById = async (req: Request, res: Response) => {
   try {
@@ -46,14 +45,6 @@ const updateProduct = async (req: Request, res: Response) => {
     const product = await ProductModel.findById(productId).exec();
     if (!product) {
       return notFoundError("Product", res);
-    }
-
-    // Check if category is valid
-    if (req.body.category) {
-      const category = await CategoryModel.findById(req.body.category);
-      if (!category) {
-        notFoundError("Category", res);
-      }
     }
 
     // Update product if Product id is valid

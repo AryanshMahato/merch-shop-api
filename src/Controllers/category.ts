@@ -90,7 +90,8 @@ const setCategoryInRequest = async (
   next: NextFunction
 ) => {
   try {
-    const id = req.params.id || req.body.category;
+    // Sets id to params.id if body.category not found!
+    const id = req.body.category || req.params.id;
     if (!id) {
       return res.status(400).json({
         message: "No Id found"
@@ -99,15 +100,14 @@ const setCategoryInRequest = async (
     const category = await CategoryModel.findById(id)
       .select("name _id")
       .exec();
-    console.log(category);
     if (!category) {
       return notFoundError("Category", res);
     }
     req.category = category;
+    next();
   } catch (e) {
     internalServerError(e, res);
   }
-  next();
 };
 
 export {

@@ -20,7 +20,13 @@ productRoutes.post(
   createProduct
 );
 
-productRoutes.put("/product/:id", isSignedIn, isAdmin, updateProduct);
+productRoutes.put(
+  "/product/:id",
+  isSignedIn,
+  isAdmin,
+  setCategoryInRequest,
+  updateProduct
+);
 
 productRoutes.delete("/product/:id", isSignedIn, isAdmin, deleteProduct);
 
