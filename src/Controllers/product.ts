@@ -45,4 +45,40 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
-export { getProductById, createProduct };
+const updateProduct = async (req: Request, res: Response) => {
+  const productId = req.params.id;
+  try {
+    // Check if Product Id is valid
+    const product = await ProductModel.findById(productId).exec();
+    if (!product) {
+      return notFoundError("Product", res);
+    }
+
+    // Check if category is valid
+    if (req.body.category) {
+      const category = await CategoryModel.findById(req.body.category);
+      if (!category) {
+        notFoundError("Category", res);
+      }
+    }
+
+    // Update product if Product id is valid
+    await ProductModel.updateOne(
+      { _id: productId },
+      { $set: { ...req.body } }
+    ).exec();
+    res.status(200).json({
+      message: "Product Updated",
+      product: {
+        name: req.body.name,
+        id: product._id
+      }
+    });
+  } catch (e) {
+    internalServerError(e, res);
+  }
+
+  res.status(200);
+};
+
+export { getProductById, createProduct, updateProduct };
