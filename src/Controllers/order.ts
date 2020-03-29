@@ -9,6 +9,7 @@ const getOrderById = async (req: Request, res: Response) => {
     const order = await OrderModel.findById(req.params.orderId)
       .populate("user", "name _id")
       .populate("products", "_id name price")
+      .select("_id products address amount transactionId user")
       .exec();
     //Checks if user asked for data is authorized or not
     // @ts-ignore
