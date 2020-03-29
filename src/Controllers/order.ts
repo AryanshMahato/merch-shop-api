@@ -3,6 +3,7 @@ import notFoundError from "../Errors/notFoundError";
 import OrderModel from "../Models/order";
 import internalServerError from "../Errors/internalServerError";
 import unAuthorizedError from "../Errors/unAuthorized";
+import { pushOrderInOrderList } from "./user";
 
 const getOrderById = async (req: Request, res: Response) => {
   try {
@@ -32,7 +33,11 @@ const createOrder = async (req: Request, res: Response) => {
       transactionId: req.body.transactionId,
       user: req.auth!._id
     });
+
+    await pushOrderInOrderList(order, req.auth!._id);
+
     await order.save();
+
     res.status(200).json({
       message: "Order Created!",
       order: {

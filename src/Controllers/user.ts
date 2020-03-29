@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import UserModel from "../Models/user";
 import internalServerError from "../Errors/internalServerError";
 import notFoundError from "../Errors/notFoundError";
@@ -6,9 +6,9 @@ import OrderModel from "../Models/order";
 
 const getUserById = async (req: Request, res: Response) => {
   try {
-    const user = await UserModel.findOne({ _id: req.params.id }).select(
-      "_id role purchases name email"
-    );
+    const user = await UserModel.findOne({ _id: req.params.id })
+      .populate("orders", "_id amount")
+      .select("_id role purchases name email");
     if (!user) {
       return notFoundError("User", res);
     }
@@ -64,43 +64,16 @@ const userPurchaseList = async (req: Request, res: Response) => {
   }
 };
 
-const pushOrderInPurchaseList = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  let purchases: Array<any> = [];
-  req.body.order.products.forEach((product: any) => {
-    purchases.push({
-      _id: product._id,
-      name: product.name,
-      description: product.description,
-      category: product.category,
-      quantity: product.quantity,
-      amount: req.body.amount,
-      transaction_id: req.body.transaction_id
-    });
-  });
-  // Store Purchases in DB
+// Adds Order in User Order List
+const pushOrderInOrderList = async (order: any, userId: string) => {
   try {
-    const user = await UserModel.findOneAndUpdate(
-      { _id: req.params.id },
-      { $push: { purchases: purchases } },
-      { new: true }
-    ).exec();
-    if (!!user) {
-      return notFoundError("User(Update)", res);
-    }
-    next();
+    await UserModel.findByIdAndUpdate(
+      { _id: userId },
+      { $push: { orders: order } }
+    );
   } catch (e) {
-    internalServerError(e, res);
     throw new Error(e);
   }
 };
 
-export {
-  getUserById,
-  updateUserById,
-  userPurchaseList,
-  pushOrderInPurchaseList
-};
+export { getUserById, updateUserById, userPurchaseList, pushOrderInOrderList };

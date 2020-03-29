@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 import UserType from "../../types/models/UserType";
 import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
@@ -27,12 +27,15 @@ const userSchema = new Schema(
     },
     salt: String,
     role: { type: Number, default: 0 },
-    purchases: {
-      type: Array,
-      default: []
-    },
-    first: String,
-    last: String
+    orders: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "order"
+      }
+    ],
+    cart: {
+      //Todo: Add Cart
+    }
   },
   { timestamps: true }
 );
