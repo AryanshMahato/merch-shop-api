@@ -10,6 +10,7 @@ interface UserType {
   purchases?: Array<any>;
   first?: string;
   last?: string;
+  cart: string;
 }
 
 export default UserType;
