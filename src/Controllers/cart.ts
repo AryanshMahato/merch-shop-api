@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import CartModel from "../Models/Cart";
+import CartModel from "../Models/cart";
 import internalServerError from "../Errors/internalServerError";
 
 const getCart = async (req: Request, res: Response) => {
@@ -17,9 +17,13 @@ const addToCart = async (req: Request, res: Response) => {
   const cartId = req.user.cart;
 
   try {
-    const cart = await CartModel.findByIdAndUpdate(cartId, {
-      $push: { products: product._id }
-    }).exec();
+    const cart = await CartModel.findByIdAndUpdate(
+      cartId,
+      {
+        $push: { products: product._id }
+      },
+      { new: true }
+    ).exec();
 
     res.json({
       message: "Product added to cart",
