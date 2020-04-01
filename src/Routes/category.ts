@@ -8,11 +8,22 @@ import {
   updateCategory
 } from "../Controllers/category";
 import { isAdmin, isSignedIn } from "../Controllers/auth";
+import { check } from "express-validator";
+import sendValidationError from "../Errors/sendValidationError";
 
 const categoryRoutes = Router();
 
 //Create Category
-categoryRoutes.post("/category/create/", isSignedIn, isAdmin, createCategory);
+categoryRoutes.post(
+  "/category/create/",
+  [
+    check("name", "Name is not provided in body").isEmpty(),
+    sendValidationError
+  ],
+  isSignedIn,
+  isAdmin,
+  createCategory
+);
 
 categoryRoutes.get("/category", isSignedIn, isAdmin, getAllCategory);
 

@@ -13,7 +13,7 @@ cartRoutes.get("/cart", isSignedIn, setUserInRequest, getCart);
 cartRoutes.put(
   "/cart",
   [
-    check("product", "Product ID is not valid").isLength({ min: 10 }),
+    check("product", "Product ID is not valid").isLength({ min: 24, max: 24 }),
     sendValidationError
   ],
   isSignedIn,
@@ -25,7 +25,7 @@ cartRoutes.put(
 cartRoutes.delete(
   "/cart",
   [
-    check("product", "Product ID is not valid").isLength({ min: 10 }),
+    check("product", "Product ID is not valid").isLength({ min: 24, max: 24 }),
     sendValidationError
   ],
   isSignedIn,
