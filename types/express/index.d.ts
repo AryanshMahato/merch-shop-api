@@ -10,5 +10,6 @@ declare namespace Express {
     category?: any;
     product?: any;
     order?: any;
+    user?: any;
   }
 }

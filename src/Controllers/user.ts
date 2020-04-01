@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import UserModel from "../Models/user";
 import internalServerError from "../Errors/internalServerError";
 import notFoundError from "../Errors/notFoundError";
@@ -76,4 +76,25 @@ const pushOrderInOrderList = async (order: any, userId: string) => {
   }
 };
 
-export { getUserById, updateUserById, userPurchaseList, pushOrderInOrderList };
+const setUserInRequest = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const user = await UserModel.findById(req.auth?._id)
+    .select("_id name email cart role")
+    .exec();
+  if (!user) {
+    return notFoundError("User", res);
+  }
+  req.user = user;
+  next();
+};
+
+export {
+  getUserById,
+  updateUserById,
+  userPurchaseList,
+  pushOrderInOrderList,
+  setUserInRequest
+};
