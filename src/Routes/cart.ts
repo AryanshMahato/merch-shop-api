@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { isSignedIn } from "../Controllers/auth";
-import { addToCart, getCart } from "../Controllers/cart";
+import { addToCart, getCart, removeFromCart } from "../Controllers/cart";
 import { setProductInRequest } from "../Controllers/product";
 import { setUserInRequest } from "../Controllers/user";
 
@@ -14,6 +14,14 @@ cartRoutes.put(
   setProductInRequest,
   setUserInRequest,
   addToCart
+);
+
+cartRoutes.delete(
+  "/cart",
+  isSignedIn,
+  setProductInRequest,
+  setUserInRequest,
+  removeFromCart
 );
 
 export default cartRoutes;
