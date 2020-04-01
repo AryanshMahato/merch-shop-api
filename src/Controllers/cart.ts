@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import CartModel from "../Models/Cart";
+import CartModel from "../Models/cart";
 import internalServerError from "../Errors/internalServerError";
 
 const getCart = async (req: Request, res: Response) => {

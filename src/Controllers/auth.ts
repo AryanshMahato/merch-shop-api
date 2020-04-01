@@ -6,7 +6,8 @@ import notFoundError from "../Errors/notFoundError";
 import invalidCredentials from "../Errors/invalidCredentials";
 import internalServerError from "../Errors/internalServerError";
 import unAuthorizedError from "../Errors/unAuthorized";
-import CartModel from "../Models/Cart";
+import CartModel from "../Models/cart";
+
 
 const createCart = async (userData: UserModel) => {
   const cart = new CartModel({ user: userData._id });
