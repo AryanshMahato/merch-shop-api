@@ -17,9 +17,13 @@ const addToCart = async (req: Request, res: Response) => {
   const cartId = req.user.cart;
 
   try {
-    const cart = await CartModel.findByIdAndUpdate(cartId, {
-      $push: { products: product._id }
-    }).exec();
+    const cart = await CartModel.findByIdAndUpdate(
+      cartId,
+      {
+        $push: { products: product._id }
+      },
+      { new: true }
+    ).exec();
 
     res.json({
       message: "Product added to cart",
