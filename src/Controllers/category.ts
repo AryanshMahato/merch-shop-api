@@ -40,11 +40,14 @@ const createCategory = async (req: Request, res: Response) => {
     name: req.body.name,
     createdBy: req.auth!._id
   });
+
   try {
     await category.save();
+
     res.status(200).json({
       message: "Category Created!",
       category: req.body.name,
+      _id: category._id,
       // @ts-ignore
       createdBy: category.createdBy
     });

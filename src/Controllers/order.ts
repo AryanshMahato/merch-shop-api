@@ -25,6 +25,7 @@ const getOrderById = async (req: Request, res: Response) => {
 };
 
 const createOrder = async (req: Request, res: Response) => {
+  // TODO: Update it with using DB for calculating amount
   try {
     const order = new OrderModel({
       address: req.body.address,
