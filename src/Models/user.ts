@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import UserType from "../../types/models/UserType";
 import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
@@ -34,7 +34,8 @@ const userSchema = new Schema(
       }
     ],
     cart: {
-      //Todo: Add Cart
+      type: mongoose.Types.ObjectId,
+      ref: "cart"
     }
   },
   { timestamps: true }

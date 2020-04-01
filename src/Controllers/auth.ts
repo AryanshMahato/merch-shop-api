@@ -6,15 +6,28 @@ import notFoundError from "../Errors/notFoundError";
 import invalidCredentials from "../Errors/invalidCredentials";
 import internalServerError from "../Errors/internalServerError";
 import unAuthorizedError from "../Errors/unAuthorized";
+import CartModel from "../Models/Cart";
+
+const createCart = async (userData: UserModel) => {
+  const cart = new CartModel({ user: userData._id });
+  return await cart.save();
+};
 
 const signUp = async (req: Request, res: Response) => {
   const user = new UserModel(req.body);
   try {
-    const userData = await user.save();
+    let userData = await user.save();
     //create token
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET!, {
       expiresIn: "7d"
     });
+
+    // Creates Cart
+    // @ts-ignore
+    user.cart = await createCart(user);
+
+    userData = await user.save();
+
     res.status(200).json({
       message: "User Created",
       // @ts-ignore

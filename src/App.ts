@@ -11,6 +11,7 @@ import userRoutes from "./Routes/user";
 import categoryRoutes from "./Routes/category";
 import productRoutes from "./Routes/product";
 import orderRoutes from "./Routes/order";
+import cartRoutes from "./Routes/cart";
 const app = express();
 
 //? DB Connection
@@ -33,6 +34,7 @@ app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", orderRoutes);
+app.use("/api", cartRoutes);
 
 // Check for Invalid Token Error
 app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
