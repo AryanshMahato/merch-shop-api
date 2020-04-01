@@ -1,5 +1,5 @@
-import {  Router } from "express";
-import {  signIn, signOut, signUp } from "../Controllers/auth";
+import { Router } from "express";
+import { signIn, signOut, signUp } from "../Controllers/auth";
 import { check } from "express-validator";
 import sendValidationError from "../Errors/sendValidationError";
 const authRoutes = Router();
