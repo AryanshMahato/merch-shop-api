@@ -67,7 +67,6 @@ productRoutes.delete("/product/:id", isSignedIn, isAdmin, deleteProduct);
 
 productRoutes.post(
   "/product/image/:id",
-  [check("image", "Image is invalid").notEmpty(), sendValidationError],
   isSignedIn,
   isAdmin,
   setProductInRequest,
