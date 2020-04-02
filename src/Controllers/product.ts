@@ -8,7 +8,7 @@ const getAllProduct = async (req: Request, res: Response) => {
   const { limit } = req.params;
   const products = await ProductModel.find()
     .limit(+limit)
-    .select("name description price category stock sold image imageExtension")
+    .select("name description price category stock sold imageName")
     .populate("category", "name _id")
     .exec();
 
@@ -25,7 +25,7 @@ const getAllProduct = async (req: Request, res: Response) => {
 const getProductById = async (req: Request, res: Response) => {
   try {
     const product = await ProductModel.findOne({ _id: req.params.id })
-      .select("name description price category stock sold image")
+      .select("name description price category stock sold imageName")
       .populate("category", "_id name")
       .exec();
     if (!product) {
