@@ -96,7 +96,7 @@ const setCategoryInRequest = async (
     const id = req.body.category || req.params.id;
     if (!id) {
       return res.status(400).json({
-        message: "No Id found"
+        message: "No Category Id found"
       });
     }
     const category = await CategoryModel.findById(id)

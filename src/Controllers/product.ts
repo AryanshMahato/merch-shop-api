@@ -41,6 +41,7 @@ const getProductById = async (req: Request, res: Response) => {
 };
 
 const createProduct = async (req: Request, res: Response) => {
+  req.body.imageName = req.file.filename;
   try {
     const product = new ProductModel(req.body);
     await product.save();
