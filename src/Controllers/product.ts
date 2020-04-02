@@ -3,10 +3,6 @@ import ProductModel from "../Models/product";
 import notFoundError from "../Errors/notFoundError";
 import internalServerError from "../Errors/internalServerError";
 import CategoryModel from "../Models/category";
-import { Fields, Files, IncomingForm } from "formidable";
-import fs from "fs";
-import badRequest from "../Errors/badRequest";
-const form = new IncomingForm();
 
 const getAllProduct = async (req: Request, res: Response) => {
   const { limit } = req.params;
@@ -121,29 +117,29 @@ const getProductImage = async (req: Request, res: Response) => {
 };
 
 const setProductImage = async (req: Request, res: Response) => {
-  form.keepExtensions = true;
-  form.parse(req, async (err, fields: Fields, files: Files) => {
-    if (err) {
-      return badRequest(err, res);
-    }
-    if (files.image) {
-      if (files.image.size > 4194304) {
-        return res.status(400).json({
-          message: "File size too big!"
-        });
-      }
-      const imageLocation = fs.readFileSync(files.image.path);
-      const imageType = files.image.type;
-      await ProductModel.findByIdAndUpdate(req.product._doc._id, {
-        $set: { image: imageLocation, imageExtension: imageType }
-      }).exec();
-
-      return res.status(200).json({
-        message: "Product Saved!"
-      });
-    }
-    internalServerError("Error", res);
-  });
+  // form.keepExtensions = true;
+  // form.parse(req, async (err, fields: Fields, files: Files) => {
+  //   if (err) {
+  //     return badRequest(err, res);
+  //   }
+  //   if (files.image) {
+  //     if (files.image.size > 4194304) {
+  //       return res.status(400).json({
+  //         message: "File size too big!"
+  //       });
+  //     }
+  //     const imageLocation = fs.readFileSync(files.image.path);
+  //     const imageType = files.image.type;
+  //     await ProductModel.findByIdAndUpdate(req.product._doc._id, {
+  //       $set: { image: imageLocation, imageExtension: imageType }
+  //     }).exec();
+  //
+  //     return res.status(200).json({
+  //       message: "Product Saved!"
+  //     });
+  //   }
+  //   internalServerError("Error", res);
+  // });
 };
 
 // Middleware that sets req.product
