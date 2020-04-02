@@ -29,7 +29,7 @@ const getAllProduct = async (req: Request, res: Response) => {
 const getProductById = async (req: Request, res: Response) => {
   try {
     const product = await ProductModel.findOne({ _id: req.params.id })
-      .select("name description price category stock sold")
+      .select("name description price category stock sold image")
       .populate("category", "_id name")
       .exec();
     if (!product) {
