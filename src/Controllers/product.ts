@@ -112,37 +112,6 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
-const getProductImage = async (req: Request, res: Response) => {
-  res.contentType(req.product.imageExtension);
-  res.send(req.product.image);
-};
-
-const setProductImage = async (req: Request, res: Response) => {
-  // form.keepExtensions = true;
-  // form.parse(req, async (err, fields: Fields, files: Files) => {
-  //   if (err) {
-  //     return badRequest(err, res);
-  //   }
-  //   if (files.image) {
-  //     if (files.image.size > 4194304) {
-  //       return res.status(400).json({
-  //         message: "File size too big!"
-  //       });
-  //     }
-  //     const imageLocation = fs.readFileSync(files.image.path);
-  //     const imageType = files.image.type;
-  //     await ProductModel.findByIdAndUpdate(req.product._doc._id, {
-  //       $set: { image: imageLocation, imageExtension: imageType }
-  //     }).exec();
-  //
-  //     return res.status(200).json({
-  //       message: "Product Saved!"
-  //     });
-  //   }
-  //   internalServerError("Error", res);
-  // });
-};
-
 // Middleware that sets req.product
 const setProductInRequest = async (
   req: Request,
@@ -177,7 +146,5 @@ export {
   updateProduct,
   deleteProduct,
   setProductInRequest,
-  setProductImage,
-  getProductImage,
   getAllProduct
 };
