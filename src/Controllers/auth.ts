@@ -8,7 +8,6 @@ import internalServerError from "../Errors/internalServerError";
 import unAuthorizedError from "../Errors/unAuthorized";
 import CartModel from "../Models/cart";
 
-
 const createCart = async (userData: UserModel) => {
   const cart = new CartModel({ user: userData._id });
   return await cart.save();
@@ -32,7 +31,7 @@ const signUp = async (req: Request, res: Response) => {
     res.status(200).json({
       message: "User Created",
       // @ts-ignore
-      data: { id: userData._id, name: userData.name, email: user.email },
+      data: { _id: userData._id, name: userData.name, email: user.email },
       token
     });
   } catch (err) {

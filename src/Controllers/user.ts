@@ -39,7 +39,7 @@ const updateUserById = async (req: Request, res: Response) => {
         name: user.name,
         // @ts-ignore
         email: user.email,
-        id: user._id
+        _id: user._id
       }
     });
   } catch (e) {

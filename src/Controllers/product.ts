@@ -50,7 +50,7 @@ const createProduct = async (req: Request, res: Response) => {
       product: {
         // @ts-ignore
         name: product.name,
-        id: product._id
+        _id: product._id
       }
     });
   } catch (e) {
@@ -79,7 +79,7 @@ const updateProduct = async (req: Request, res: Response) => {
       message: "Product Updated",
       product: {
         name: req.body.name,
-        id: req.product._doc._id
+        _id: req.product._doc._id
       }
     });
   } catch (e) {
@@ -104,7 +104,7 @@ const deleteProduct = async (req: Request, res: Response) => {
       message: "Product Deleted",
       product: {
         name: req.body.name,
-        id: product._id
+        _id: product._id
       }
     });
   } catch (e) {
