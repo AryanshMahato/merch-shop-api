@@ -78,18 +78,6 @@ const isSignedIn = expressJwt({
   userProperty: "auth"
 });
 
-// No need to add isUser while using isAdmin
-const isUser = (req: Request, res: Response, next: NextFunction) => {
-  // Returns true if all checks are true
-  const check =
-    req.auth &&
-    (req.auth._id === req.body.id || req.auth._id === req.params.id);
-  if (!check) {
-    return unAuthorizedError(res);
-  }
-  next();
-};
-
 const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await UserModel.findById(req.auth!._id).exec();
@@ -106,4 +94,4 @@ const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export { signOut, signUp, signIn, isSignedIn, isAdmin, isUser };
+export { signOut, signUp, signIn, isSignedIn, isAdmin };

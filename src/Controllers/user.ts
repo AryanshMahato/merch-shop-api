@@ -23,7 +23,7 @@ const getUserById = async (req: Request, res: Response) => {
 
 const updateUserById = async (req: Request, res: Response) => {
   try {
-    let user = await UserModel.findById(req.params.id).exec();
+    let user = await UserModel.findById(req.auth?._id).exec();
     if (!user) {
       return notFoundError("User", res);
     }
@@ -49,7 +49,7 @@ const updateUserById = async (req: Request, res: Response) => {
 
 const userPurchaseList = async (req: Request, res: Response) => {
   try {
-    const order = await OrderModel.find({ user: req.params.id })
+    const order = await OrderModel.find({ user: req.auth?._id })
       .populate("user", "_id name")
       .exec();
     if (!order.length) {
