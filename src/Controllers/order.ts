@@ -42,7 +42,7 @@ const createOrder = async (req: Request, res: Response) => {
     res.status(200).json({
       message: "Order Created!",
       order: {
-        id: order._id,
+        _id: order._id,
         // @ts-ignore
         amount: order.amount,
         // @ts-ignore
