@@ -6,7 +6,7 @@ import OrderModel from "../Models/order";
 
 const getUserById = async (req: Request, res: Response) => {
   try {
-    const user = await UserModel.findOne({ _id: req.params.id })
+    const user = await UserModel.findOne({ _id: req.auth?._id })
       .populate("orders", "_id amount")
       .select("_id role purchases name email");
     if (!user) {

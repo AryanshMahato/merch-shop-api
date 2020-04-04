@@ -9,7 +9,7 @@ import { check } from "express-validator";
 
 const userRoutes = Router();
 
-userRoutes.get("/user/:id", isSignedIn, isUser, getUserById);
+userRoutes.get("/user/", isSignedIn, getUserById);
 
 userRoutes.put(
   "/user/:id",
