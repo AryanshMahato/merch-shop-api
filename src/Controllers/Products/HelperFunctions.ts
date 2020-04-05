@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import notFoundError from "../../Errors/notFoundError";
 import ProductModel from "../../Models/product";
 import internalServerError from "../../Errors/internalServerError";
+import IProduct from "../../../types/models/Models/Product";
 
 const setProductInRequest = async (
   req: Request,
@@ -15,7 +16,7 @@ const setProductInRequest = async (
       return notFoundError("Id", res);
     }
 
-    const product = await ProductModel.findById(id)
+    const product: IProduct | null = await ProductModel.findById(id)
       .select(
         "_id name description price category stock sold image imageExtension"
       )

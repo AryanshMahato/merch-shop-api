@@ -10,6 +10,7 @@ const updateProduct = async (req: Request, res: Response) => {
   try {
     // Check if category is valid (If provided)
     const categoryId = req.body.category;
+
     if (categoryId) {
       const category = await CategoryModel.findById(categoryId).exec();
       if (!category) {
