@@ -1,15 +1,13 @@
 import { Router } from "express";
-import {
-  createCategory,
-  deleteCategory,
-  getAllCategory,
-  getCategoryById,
-  setCategoryInRequest,
-  updateCategory
-} from "../Controllers/category";
 import { check } from "express-validator";
 import sendValidationError from "../Errors/sendValidationError";
 import { isAdmin, isSignedIn } from "../Controllers/Auth/HelperFunctions";
+import createCategory from "../Controllers/Cartegory/createCategory";
+import getAllCategory from "../Controllers/Cartegory/getAllCategory";
+import getCategoryById from "../Controllers/Cartegory/getCartegoryById";
+import updateCategory from "../Controllers/Cartegory/updateCategory";
+import deleteCategory from "../Controllers/Cartegory/deleteCategory";
+import { setCategoryInRequest } from "../Controllers/Cartegory/HelperFunctions";
 
 const categoryRoutes = Router();
 
