@@ -13,7 +13,6 @@ const getOrderById = async (req: Request, res: Response) => {
       .exec();
 
     //Checks if user asked for data is authorized or not
-    // @ts-ignore
     if (order?.user?._id != req.auth?._id) return unAuthorizedError(res);
 
     res.status(200).json({
