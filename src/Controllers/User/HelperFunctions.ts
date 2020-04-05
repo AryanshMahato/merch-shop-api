@@ -2,6 +2,7 @@
 import UserModel from "../../Models/user";
 import { NextFunction, Request, Response } from "express";
 import notFoundError from "../../Errors/notFoundError";
+import IUser from "../../../types/models/Models/User";
 
 const pushOrderInOrderList = async (order: any, userId: string) => {
   try {
@@ -19,12 +20,14 @@ const setUserInRequest = async (
   res: Response,
   next: NextFunction
 ) => {
-  const user = await UserModel.findById(req.auth?._id)
-    .select("_id name email cart role")
+  const user: IUser | null = await UserModel.findById(req.auth?._id)
+    .select("_id name email cart role orders")
     .exec();
+
   if (!user) {
     return notFoundError("User", res);
   }
+
   req.user = user;
   next();
 };
