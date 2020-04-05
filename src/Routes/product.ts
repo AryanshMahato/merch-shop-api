@@ -1,17 +1,15 @@
 import { Router } from "express";
-import {
-  createProduct,
-  deleteProduct,
-  getAllProduct,
-  getProductById,
-  setProductInRequest,
-  updateProduct
-} from "../Controllers/product";
 import { check } from "express-validator";
 import sendValidationError from "../Errors/sendValidationError";
 import mMulter from "../util/mMulter";
 import { isAdmin, isSignedIn } from "../Controllers/Auth/HelperFunctions";
 import { setCategoryInRequest } from "../Controllers/Cartegory/HelperFunctions";
+import createProduct from "../Controllers/Products/createProduct";
+import updateProduct from "../Controllers/Products/updateProduct";
+import deleteProduct from "../Controllers/Products/deleteProduct";
+import getProductById from "../Controllers/Products/getProductById";
+import getAllProduct from "../Controllers/Products/getAllProduct";
+import { setProductInRequest } from "../Controllers/Products/HelperFunctions";
 
 //! Root Directory must have an uploads folder
 
