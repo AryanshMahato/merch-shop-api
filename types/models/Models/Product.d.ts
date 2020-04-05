@@ -1,11 +1,11 @@
 import { Document } from "mongoose";
+import ICategory from "./Category";
 
 interface IProduct extends Document {
   name?: string;
   description?: string;
   price?: number;
-  //TODO: Add Category Ref
-  category?: string;
+  category?: ICategory;
   stock?: number;
   sold?: number;
   imageName?: string;

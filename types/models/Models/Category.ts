@@ -1,9 +1,9 @@
 import { Document } from "mongoose";
+import IUser from "./User";
 
 interface ICategory extends Document {
   name?: string;
-  //TODO: Add User Ref
-  createdBy?: string;
+  createdBy?: IUser;
 }
 
 export default ICategory;
