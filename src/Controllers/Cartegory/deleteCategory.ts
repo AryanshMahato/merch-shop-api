@@ -5,6 +5,7 @@ import internalServerError from "../../Errors/internalServerError";
 const deleteCategory = async (req: Request, res: Response) => {
   try {
     await CategoryModel.findByIdAndDelete(req.params.id).exec();
+
     res.status(200).json({
       message: "Category Deleted!",
       category: { ...req.category._doc }
