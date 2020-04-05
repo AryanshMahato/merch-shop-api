@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import OrderModel from "../../Models/order";
-import { pushOrderInOrderList } from "../user";
+import { pushOrderInOrderList } from "../User/HelperFunctions";
 
 const createOrder = async (req: Request, res: Response) => {
   // TODO: Update it with using DB for calculating amount
