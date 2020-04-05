@@ -8,7 +8,8 @@ const getUserById = async (req: Request, res: Response) => {
   try {
     const user: IUser | null = await UserModel.findOne({ _id: req.auth?._id })
       .populate("orders", "_id amount")
-      .select("_id role purchases name email");
+      .populate("cart", "products count price user")
+      .select("_id role purchases name email cart");
 
     if (!user) {
       return notFoundError("User", res);
