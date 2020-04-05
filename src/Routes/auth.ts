@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { signIn, signOut, signUp } from "../Controllers/auth";
 import { check } from "express-validator";
 import sendValidationError from "../Errors/sendValidationError";
+import signUp from "../Controllers/Auth/signUp";
+import signIn from "../Controllers/Auth/signIn";
+import signOut from "../Controllers/Auth/signOut";
 const authRoutes = Router();
 
 authRoutes.post(

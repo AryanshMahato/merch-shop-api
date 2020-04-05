@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { isSignedIn } from "../Controllers/auth";
 import { addToCart, getCart, removeFromCart } from "../Controllers/cart";
 import { setProductInRequest } from "../Controllers/product";
 import { setUserInRequest } from "../Controllers/user";
 import { check } from "express-validator";
 import sendValidationError from "../Errors/sendValidationError";
+import { isSignedIn } from "../Controllers/Auth/HelperFunctions";
 
 const cartRoutes = Router();
 

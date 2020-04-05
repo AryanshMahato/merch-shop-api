@@ -7,9 +7,9 @@ import {
   setCategoryInRequest,
   updateCategory
 } from "../Controllers/category";
-import { isAdmin, isSignedIn } from "../Controllers/auth";
 import { check } from "express-validator";
 import sendValidationError from "../Errors/sendValidationError";
+import { isAdmin, isSignedIn } from "../Controllers/Auth/HelperFunctions";
 
 const categoryRoutes = Router();
 

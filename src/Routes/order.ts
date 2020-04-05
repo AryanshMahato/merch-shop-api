@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { isSignedIn } from "../Controllers/auth";
 import {
   createOrder,
   getOrderById,
@@ -7,6 +6,7 @@ import {
 } from "../Controllers/order";
 import sendValidationError from "../Errors/sendValidationError";
 import { check } from "express-validator";
+import { isSignedIn } from "../Controllers/Auth/HelperFunctions";
 
 const orderRoutes = Router();
 

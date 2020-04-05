@@ -7,11 +7,11 @@ import {
   setProductInRequest,
   updateProduct
 } from "../Controllers/product";
-import { isAdmin, isSignedIn } from "../Controllers/auth";
 import { setCategoryInRequest } from "../Controllers/category";
 import { check } from "express-validator";
 import sendValidationError from "../Errors/sendValidationError";
 import mMulter from "../util/mMulter";
+import { isAdmin, isSignedIn } from "../Controllers/Auth/HelperFunctions";
 
 //! Root Directory must have an uploads folder
 
