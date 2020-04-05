@@ -11,7 +11,8 @@ interface IUser extends Document {
   role?: number;
   orders?: Array<IOrder>;
   cart?: ICart;
-  //TODO: Add Virtual Methods
+  authenticate?: (plainPassword: string) => string;
+  hashPassword?: (plainPassword: string) => string;
 }
 
 export default IUser;
