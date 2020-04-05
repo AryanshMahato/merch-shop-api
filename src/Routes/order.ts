@@ -1,12 +1,10 @@
 import { Router } from "express";
-import { isSignedIn } from "../Controllers/auth";
-import {
-  createOrder,
-  getOrderById,
-  setOrderInRequest
-} from "../Controllers/order";
 import sendValidationError from "../Errors/sendValidationError";
 import { check } from "express-validator";
+import { isSignedIn } from "../Controllers/Auth/HelperFunctions";
+import getOrderById from "../Controllers/Order/getOrderById";
+import createOrder from "../Controllers/Order/createOrder";
+import { setOrderInRequest } from "../Controllers/Order/HelperFunctions";
 
 const orderRoutes = Router();
 

@@ -1,19 +1,15 @@
 import { Router } from "express";
-import {
-  createProduct,
-  deleteProduct,
-  getAllProduct,
-  getProductById,
-  getProductImage,
-  setProductImage,
-  setProductInRequest,
-  updateProduct
-} from "../Controllers/product";
-import { isAdmin, isSignedIn } from "../Controllers/auth";
-import { setCategoryInRequest } from "../Controllers/category";
 import { check } from "express-validator";
 import sendValidationError from "../Errors/sendValidationError";
 import mMulter from "../util/mMulter";
+import { isAdmin, isSignedIn } from "../Controllers/Auth/HelperFunctions";
+import { setCategoryInRequest } from "../Controllers/Cartegory/HelperFunctions";
+import createProduct from "../Controllers/Products/createProduct";
+import updateProduct from "../Controllers/Products/updateProduct";
+import deleteProduct from "../Controllers/Products/deleteProduct";
+import getProductById from "../Controllers/Products/getProductById";
+import getAllProduct from "../Controllers/Products/getAllProduct";
+import { setProductInRequest } from "../Controllers/Products/HelperFunctions";
 
 //! Root Directory must have an uploads folder
 
@@ -58,15 +54,5 @@ productRoutes.put(
 );
 
 productRoutes.delete("/product/:id", isSignedIn, isAdmin, deleteProduct);
-
-productRoutes.post(
-  "/product/image/:id",
-  isSignedIn,
-  isAdmin,
-  setProductInRequest,
-  setProductImage
-);
-
-productRoutes.get("/product/image/:id", setProductInRequest, getProductImage);
 
 export default productRoutes;

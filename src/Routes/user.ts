@@ -4,8 +4,8 @@ import {
   updateUserById,
   userPurchaseList
 } from "../Controllers/user";
-import { isSignedIn } from "../Controllers/auth";
 import { check } from "express-validator";
+import { isSignedIn } from "../Controllers/Auth/HelperFunctions";
 
 const userRoutes = Router();
 
