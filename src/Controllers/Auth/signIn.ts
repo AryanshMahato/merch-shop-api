@@ -10,7 +10,9 @@ const signIn = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   try {
-    const user: IUser | null = await UserModel.findOne({ email: email });
+    const user: IUser | null = await UserModel.findOne({
+      email: email
+    }).populate("cart", "products count price user");
 
     if (!user) return notFoundError("User", res);
 
