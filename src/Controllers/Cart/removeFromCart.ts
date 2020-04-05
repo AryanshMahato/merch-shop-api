@@ -1,15 +1,17 @@
 import { Request, Response } from "express";
 import CartModel from "../../Models/cart";
 import internalServerError from "../../Errors/internalServerError";
+import ICart from "../../../types/models/Models/Cart";
 
 const removeFromCart = async (req: Request, res: Response) => {
   const { product } = req;
   const cartId = req.user.cart;
 
   try {
-    const cart = await CartModel.findById(cartId).exec();
-    // @ts-ignore
-    cart.products.pop(product);
+    const cart: ICart | null = await CartModel.findById(cartId).exec();
+
+    cart?.products?.splice(cart?.products?.indexOf(product), 1);
+
     await cart?.save();
 
     res.json({

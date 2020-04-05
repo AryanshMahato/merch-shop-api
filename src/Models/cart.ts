@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import CartType from "../../types/models/CartType";
+import CartType from "../../types/models/InputType/CartType";
 
 const { ObjectId } = Schema.Types;
 

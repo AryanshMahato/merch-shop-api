@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import OrderModel from "../../Models/order";
 import { pushOrderInOrderList } from "../User/HelperFunctions";
+import IOrder from "../../../types/models/Models/Order";
 
 const createOrder = async (req: Request, res: Response) => {
   // TODO: Update it with using DB for calculating amount
   try {
-    const order = new OrderModel({
+    const order: IOrder | null = new OrderModel({
       address: req.body.address,
       amount: req.body.amount,
       products: req.body.products,
@@ -21,9 +22,7 @@ const createOrder = async (req: Request, res: Response) => {
       message: "Order Created!",
       order: {
         _id: order._id,
-        // @ts-ignore
         amount: order.amount,
-        // @ts-ignore
         products: order.products
       }
     });
