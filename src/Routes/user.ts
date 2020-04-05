@@ -1,11 +1,9 @@
 import { Router } from "express";
-import {
-  getUserById,
-  updateUserById,
-  userPurchaseList
-} from "../Controllers/user";
 import { check } from "express-validator";
 import { isSignedIn } from "../Controllers/Auth/HelperFunctions";
+import getUserById from "../Controllers/User/getUserById";
+import updateUserById from "../Controllers/User/updateUserById";
+import getUserPurchaseList from "../Controllers/User/getUserPurchaseList";
 
 const userRoutes = Router();
 
@@ -22,6 +20,6 @@ userRoutes.put(
   updateUserById
 );
 
-userRoutes.get("/orders/user/", isSignedIn, userPurchaseList);
+userRoutes.get("/orders/user/", isSignedIn, getUserPurchaseList);
 
 export default userRoutes;
