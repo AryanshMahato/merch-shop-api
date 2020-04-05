@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import UserType from "../../types/models/UserType";
+import UserType from "../../types/models/InputType/UserType";
 import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
 

@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import ProductType from "../../types/models/ProductType";
+import ProductType from "../../types/models/InputType/ProductType";
 
 const { ObjectId } = Schema.Types;
 

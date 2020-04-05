@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import CategoryType from "../../types/models/CategoryType";
+import CategoryType from "../../types/models/InputType/CategoryType";
 
 const { ObjectId } = Schema.Types;
 
