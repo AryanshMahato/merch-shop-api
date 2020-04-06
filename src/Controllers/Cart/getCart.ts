@@ -7,6 +7,10 @@ const getCart = async (req: Request, res: Response) => {
 
   const cart: ICart | null = await CartModel.findById(cartId)
     .populate("user", "_id name email cart role")
+    .populate(
+      "products",
+      "_id name description price category stock sold imageName"
+    )
     .exec();
 
   res.json({

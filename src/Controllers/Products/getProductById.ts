@@ -9,7 +9,7 @@ const getProductById = async (req: Request, res: Response) => {
     const product: IProduct | null = await ProductModel.findOne({
       _id: req.params.id
     })
-      .select("name description price category stock sold imageName")
+      .select("_id name description price category stock sold imageName")
       .populate("category", "_id name")
       .exec();
 
