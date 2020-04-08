@@ -4,7 +4,7 @@ import internalServerError from "../../Errors/internalServerError";
 import ICart from "../../../types/models/Models/Cart";
 
 const removeFromCart = async (req: Request, res: Response) => {
-  const { product } = req;
+  const { product } = req.body;
   const cartId = req.user.cart;
 
   try {
