@@ -7,6 +7,7 @@ import addToCart from "../Controllers/Cart/addToCart";
 import removeFromCart from "../Controllers/Cart/removeFromCart";
 import { setProductInRequest } from "../Controllers/Products/HelperFunctions";
 import { setUserInRequest } from "../Controllers/User/HelperFunctions";
+import clearCart from "../Controllers/Cart/clearCart";
 
 const cartRoutes = Router();
 
@@ -35,5 +36,7 @@ cartRoutes.delete(
   setUserInRequest,
   removeFromCart
 );
+
+cartRoutes.delete("/cart/clear", isSignedIn, setUserInRequest, clearCart);
 
 export default cartRoutes;
