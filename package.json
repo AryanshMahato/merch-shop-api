@@ -23,7 +23,8 @@
     "lodash": "^4.17.15",
     "mongoose": "^5.9.5",
     "morgan": "^1.10.0",
-    "uuid": "^7.0.2"
+    "uuid": "^7.0.2",
+    "stripe": "^8.39.2"
   },
   "repository": {
     "type": "git",
