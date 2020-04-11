@@ -14,11 +14,7 @@ orderRoutes.get("/order/:orderId", isSignedIn, setOrderInRequest, getOrderById);
 
 orderRoutes.post(
   "/order/create",
-  [
-    check("token", "Product is invalid").isArray(),
-    check("transactionId", "Transaction Id is invalid").isString(),
-    sendValidationError
-  ],
+  [check("token", "Product is invalid"), sendValidationError],
   isSignedIn,
   setUserInRequest,
   setCartInRequest,

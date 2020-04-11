@@ -15,7 +15,7 @@ const makePayment = async (req: Request, res: Response) => {
     const customer = await stripe.customers.create({
       name,
       email,
-      source: "tok_mastercard",
+      source: req.body.token,
       address: {
         line1: "We Don't need it",
         postal_code: "713338",
@@ -41,11 +41,11 @@ const createOrder = async (req: Request, res: Response) => {
   try {
     const response = await makePayment(req, res);
     if (!response) {
-      throw new Error(response);
+      return internalServerError(response, res);
     }
 
     const order: IOrder | null = new OrderModel({
-      amount: response.amount,
+      amount: response.amount / 100,
       products: req.cart.products,
       transactionId: response.id,
       user: req.user
