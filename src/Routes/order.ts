@@ -5,6 +5,7 @@ import { isSignedIn } from "../Controllers/Auth/HelperFunctions";
 import getOrderById from "../Controllers/Order/getOrderById";
 import createOrder from "../Controllers/Order/createOrder";
 import { setOrderInRequest } from "../Controllers/Order/HelperFunctions";
+import { setUserInRequest } from "../Controllers/User/HelperFunctions";
 
 const orderRoutes = Router();
 
@@ -22,6 +23,7 @@ orderRoutes.post(
     sendValidationError
   ],
   isSignedIn,
+  setUserInRequest,
   createOrder
 );
 
