@@ -4,8 +4,8 @@
   "description": "Backend for Merch Shop",
   "main": "App.js",
   "scripts": {
-    "start": "nodemon ./src/App.ts",
-    "start-server": "node ./dist/App.js",
+    "start-server": "nodemon ./src/App.ts",
+    "start": "node ./dist/App.js",
     "build": "tsc"
   },
   "dependencies": {
