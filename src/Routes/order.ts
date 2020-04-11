@@ -6,6 +6,7 @@ import getOrderById from "../Controllers/Order/getOrderById";
 import createOrder from "../Controllers/Order/createOrder";
 import { setOrderInRequest } from "../Controllers/Order/HelperFunctions";
 import { setUserInRequest } from "../Controllers/User/HelperFunctions";
+import setCartInRequest from "../Controllers/Cart/HelperFunctions";
 
 const orderRoutes = Router();
 
@@ -24,6 +25,7 @@ orderRoutes.post(
   ],
   isSignedIn,
   setUserInRequest,
+  setCartInRequest,
   createOrder
 );
 

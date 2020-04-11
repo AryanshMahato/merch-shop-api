@@ -23,3 +23,5 @@ const setCartInRequest = async (
   req.cart = cart;
   next();
 };
+
+export default setCartInRequest;
