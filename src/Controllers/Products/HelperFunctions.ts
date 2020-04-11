@@ -32,4 +32,13 @@ const setProductInRequest = async (
   }
 };
 
-export { setProductInRequest };
+const calcTotalPrice = (products: Array<IProduct>) => {
+  let totalPrice = 0;
+  products.forEach(product => {
+    totalPrice += product.price || 0;
+  });
+
+  return totalPrice;
+};
+
+export { setProductInRequest, calcTotalPrice };
