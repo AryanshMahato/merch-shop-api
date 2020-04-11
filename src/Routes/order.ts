@@ -15,11 +15,7 @@ orderRoutes.get("/order/:orderId", isSignedIn, setOrderInRequest, getOrderById);
 orderRoutes.post(
   "/order/create",
   [
-    check("address", "Address is too short").isLength({
-      min: 10
-    }),
-    check("amount", "Amount is invalid").isNumeric(),
-    check("products", "Product is invalid").isArray(),
+    check("token", "Product is invalid").isArray(),
     check("transactionId", "Transaction Id is invalid").isString(),
     sendValidationError
   ],

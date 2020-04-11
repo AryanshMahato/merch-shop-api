@@ -8,7 +8,6 @@ const orderSchema = new Schema(
     products: [{ type: ObjectId, ref: "product" }],
     transactionId: {},
     amount: { type: Number },
-    address: String,
     user: {
       type: ObjectId,
       ref: "user"
