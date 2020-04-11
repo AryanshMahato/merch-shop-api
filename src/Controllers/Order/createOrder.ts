@@ -38,7 +38,6 @@ const makePayment = async (req: Request, res: Response) => {
 
 const createOrder = async (req: Request, res: Response) => {
   console.log(req.cart);
-  // TODO: Update it with using DB for calculating amount
   try {
     const response = await makePayment(req, res);
     if (!response) {
