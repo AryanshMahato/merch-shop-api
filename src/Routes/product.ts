@@ -10,8 +10,9 @@ import deleteProduct from "../Controllers/Products/deleteProduct";
 import getProductById from "../Controllers/Products/getProductById";
 import getAllProduct from "../Controllers/Products/getAllProduct";
 import { setProductInRequest } from "../Controllers/Products/HelperFunctions";
+import createUploadDirectory from "../util/createUploadDirectory";
 
-//! Root Directory must have an uploads folder
+createUploadDirectory();
 
 const productRoutes = Router();
 productRoutes.get("/product/:id", getProductById);
