@@ -2,7 +2,7 @@
   "name": "shop-api",
   "version": "1.0.0",
   "description": "Backend for Merch Shop",
-  "main": "./dist/App.js",
+  "main": "App.js",
   "scripts": {
     "start-server": "nodemon ./src/App.ts",
     "start": "node ./dist/App.js",
