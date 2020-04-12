@@ -19,15 +19,6 @@ productRoutes.get("/product/:id", getProductById);
 //TODO: Add different route for all products
 productRoutes.get("/products/:limit", getAllProduct);
 
-productRoutes.post(
-  "/product/",
-  mMulter.single("image"),
-  isSignedIn,
-  isAdmin,
-  setCategoryInRequest,
-  createProduct
-);
-
 productRoutes.put(
   "/product/:id",
   [

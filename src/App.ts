@@ -12,6 +12,10 @@ import categoryRoutes from "./Routes/category";
 import productRoutes from "./Routes/product";
 import orderRoutes from "./Routes/order";
 import cartRoutes from "./Routes/cart";
+import mMulter from "./util/mMulter";
+import { isAdmin, isSignedIn } from "./Controllers/Auth/HelperFunctions";
+import { setCategoryInRequest } from "./Controllers/Cartegory/HelperFunctions";
+import createProduct from "./Controllers/Products/createProduct";
 const app = express();
 
 //? DB Connection
@@ -36,6 +40,15 @@ app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", orderRoutes);
 app.use("/api", cartRoutes);
+
+app.post(
+  "/product/",
+  mMulter.single("image"),
+  isSignedIn,
+  isAdmin,
+  setCategoryInRequest,
+  createProduct
+);
 
 // Check for Invalid Token Error
 app.use(function(err: any, req: Request, res: Response, next: NextFunction) {
