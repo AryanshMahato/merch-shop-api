@@ -17,9 +17,7 @@ const setProductInRequest = async (
     }
 
     const product: IProduct | null = await ProductModel.findById(id)
-      .select(
-        "_id name description price category stock sold image imageExtension"
-      )
+      .select("_id name description price category stock sold imageName")
       .populate("category");
     if (!product) {
       return notFoundError("Product", res);
