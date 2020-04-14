@@ -37,7 +37,6 @@ const makePayment = async (req: Request, res: Response) => {
 };
 
 const createOrder = async (req: Request, res: Response) => {
-  console.log(req.cart);
   try {
     const response = await makePayment(req, res);
     if (!response) {
@@ -63,12 +62,8 @@ const createOrder = async (req: Request, res: Response) => {
         products: order.products
       }
     });
-
-    res.status(200).json({ response });
   } catch (e) {
-    res.status(200).json({
-      order: req.body
-    });
+    internalServerError(e, res);
   }
 };
 
