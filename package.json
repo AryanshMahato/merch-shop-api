@@ -24,7 +24,8 @@
     "mongoose": "^5.9.5",
     "morgan": "^1.10.0",
     "uuid": "^7.0.2",
-    "stripe": "^8.39.2"
+    "stripe": "^8.39.2",
+    "aws-sdk": "^2.656.0"
   },
   "repository": {
     "type": "git",

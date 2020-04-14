@@ -12,6 +12,7 @@ import categoryRoutes from "./Routes/category";
 import productRoutes from "./Routes/product";
 import orderRoutes from "./Routes/order";
 import cartRoutes from "./Routes/cart";
+import { connectAWS } from "./util/s3";
 const app = express();
 
 //? DB Connection
@@ -22,6 +23,9 @@ connectMongoose()
   .catch((e: any) => {
     console.log(e, "Problem in Database Connection");
   });
+
+//? AWS Connection
+connectAWS();
 
 //? MiddleWares
 app.use(cors());
