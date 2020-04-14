@@ -7,8 +7,11 @@ import createOrder from "../Controllers/Order/createOrder";
 import { setOrderInRequest } from "../Controllers/Order/HelperFunctions";
 import { setUserInRequest } from "../Controllers/User/HelperFunctions";
 import setCartInRequest from "../Controllers/Cart/HelperFunctions";
+import { getOrders } from "../Controllers/Order/getOrders";
 
 const orderRoutes = Router();
+
+orderRoutes.get("/order/", isSignedIn, getOrders);
 
 orderRoutes.get("/order/:orderId", isSignedIn, setOrderInRequest, getOrderById);
 
