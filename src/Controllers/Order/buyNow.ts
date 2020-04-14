@@ -56,7 +56,7 @@ const buyNow = async (req: Request, res: Response) => {
       }
     });
   } catch (e) {
-    console.log(e);
+    internalServerError(e, res);
   }
 };
 
