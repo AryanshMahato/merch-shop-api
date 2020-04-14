@@ -24,6 +24,7 @@ const saveImage = async (image: any) => {
     imageName
   );
   const file = fs.readFileSync(pathToUploadImage);
+  fs.unlinkSync(pathToUploadImage);
 
   return await s3
     .putObject({
