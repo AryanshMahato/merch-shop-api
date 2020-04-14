@@ -52,7 +52,7 @@ const buyNow = async (req: Request, res: Response) => {
       order: {
         _id: order._id,
         amount: order.amount,
-        product: order.products
+        product: req.product
       }
     });
   } catch (e) {
